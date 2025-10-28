@@ -1,0 +1,35 @@
+# Object files
+*.o
+
+# Libraries
+*.a
+
+# Executables
+so_long
+
+# Editor backup files
+*~
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Documentation (optional - uncomment if you want to ignore these)
+# roadmap.txt
+# tree.txt
+# graphics_functions_documentation.c
+
+# Test files
+test
+a.out
+
+# MinilibX compiled files
+minilibx-linux/*.o
+minilibx-linux/obj/*.o
+minilibx-linux/test/main.o
+minilibx-linux/test/mlx-test
