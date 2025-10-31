@@ -1,4 +1,3 @@
-
 NAME := so_long
 CC   := cc
 CFLAGS := -Wall -Wextra -Werror -Iinclude -Iminilibx-linux
@@ -27,41 +26,31 @@ SRC_FILES := main.c map_parse.c map_validation.c \
 			 animation/animation_system.c \
 			 utils/timer.c
 SRC := $(addprefix src/, $(SRC_FILES))
-OBJ_DIR := obj
-OBJ := $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
+OBJ := $(patsubst src/%.c,obj/%.o,$(SRC))
 
-
-
-all: $(OBJ_DIR) $(NAME)
+all: $(NAME)
 
 $(NAME): $(OBJ) $(MLX_LIB) $(LIBFT_LIB)
 	$(CC) $(CFLAGS) $(OBJ) $(MLX_LNK) $(LIBFT_LNK) -o $(NAME)
 
-# The -p option makes directory creation safer and more convenient in build scripts.
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
-
-$(OBJ_DIR)/%.o: src/%.c
+obj/%.o: src/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(MLX_LIB):
 	@if [ ! -f $(MLX_LIB) ]; then \
 		echo "Building MiniLibX..."; \
-		cd $(MLX_DIR) && chmod +x configure && ./configure && make -f makefile.gen; \
+		cd $(MLX_DIR) && chmod +x configure && ./configure && make -f Makefile.gen; \
 	fi
 
 $(LIBFT_LIB):
 	$(MAKE) -C $(LIBFT_DIR)
 
 clean:
-	rm -f $(OBJ)
+	rm -rf obj
 	$(MAKE) -C $(LIBFT_DIR) clean
 
-
-
 fclean: clean
-	rm -rf $(OBJ_DIR)
 	rm -f $(NAME)
 	$(MAKE) -C $(LIBFT_DIR) fclean
 
