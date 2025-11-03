@@ -21,7 +21,6 @@ static int	handle_exit_tile(t_game *game, int new_x, int new_y)
 		game->map[game->player_y][game->player_x] = '0';
 		game->player_x = new_x;
 		game->player_y = new_y;
-		game->map[new_y][new_x] = 'P';
 		game->moves++;
 		render_map(game);
 		render_enemies(game);
